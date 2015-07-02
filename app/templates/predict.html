@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Green Mill</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="../static/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="../static/css/grayscale.css" rel="stylesheet">
+
+    <!-- Green Mill CSS -->
+    <link href="../static/css/greenmill.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="../static/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet" type="text/css">
+    <link href="http://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <style type="text/css">
+        h2 { color: #42dca3;}
+    </style>
+
+    <!--Google Analytics link-->
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-64720916-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+
+</head>
+
+
+
+<body id="page-top" data-spy="scroll" data-target=".navbar-fixed-top">
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-custom navbar-fixed-top" role="navigation">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-main-collapse">
+                    <i class="fa fa-bars"></i>
+                </button>
+                <a class="navbar-brand page-scroll" href="#page-top">
+                    <a class="navbar-brand page-scroll" href="#page-top">
+                    <span class="green"><i class="fa fa-arrow-circle-up"></i> <span class="light">Green</span> Mill</span>
+                </a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse navbar-right navbar-main-collapse">
+                <ul class="nav navbar-nav">
+                    <!-- Hidden li included to remove active class from about link when scrolled up past about section -->
+                    <li class="hidden">
+                        <a href="#page-top"></a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="#predict">Predict</a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="#explore">Explore</a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="#about">About</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+
+    <!-- Intro Header -->
+    <!-- Intro Header -->
+    <header class="intro">
+        <div class="intro-body">
+            <div class="container">
+                <div class="row">
+                        <!--<h1 class="brand-heading">Green Mill</h1>-->
+                        <img class="title-img" src="../static/img/gm.jpg"><br><br><br>
+                        <p class="par-text orange"><span style="font-size:26px">Predict recruitment candidate churn</span></p>
+                        <a href="#predict" class="btn btn-circle page-scroll orange">
+                            <i class="fa fa-angle-double-down animated orange"></i>
+                        </a>
+                   
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Prediction Section -->
+    <section id="predict" class="container content-section text-center">
+        <div class="row">
+            <div>
+                <h2>Predict Candidate Churn</h2>
+                {% if landing == True %}
+                    <p class="par-text">Upload a CSV with times spent by candidates in various stages of your interview pipeline:</p>
+                {% else %}
+                    <script>
+                    location.href = "#predict"
+                    </script>
+                    {% if error == 0 %}
+                        <p class="par-text">Green Mill predicts the following likelihood that your candidates will churn:</p>
+                        <table class="table table-hover-gm par-text">
+                              <tr class="blue"><td>Job ID</td><td>Applicant ID</td><td>Churn Probability</td><td>Contributing Factor</td></tr>
+                              {% for sample in pred_dicts %}
+                              {% if sample['prediction'] > threshold %}
+                              <tr><td>{{ sample['job_id'] }}</td><td>{{ sample['app_id'] }}</td><td class="red">{{ "{0:.1f}".format(sample['prediction']*100) }} %</td><td>{{ sample['cont_feat_msg'] }}</td></tr>
+                              {% else %}
+                              <tr><td>{{ sample['job_id'] }}</td><td>{{ sample['app_id'] }}</td><td class="green">{{ "{0:.1f}".format(sample['prediction']*100) }} %</td><td>-</td></tr>
+                              {% endif %}
+                              {% endfor %}
+                        </table>
+                    {% elif error == -1 %}
+                        <p class="par-text red">Your file failed to upload or did not have the right extension (txt, csv). Try again below.</p>
+                    {% elif error == -2 %}
+                        <p class="par-text red">Your did not conform to the required schema. Try again below.</p>
+                    {% elif error == -3 %}
+                        <p class="par-text red">No predications could be made because your data was incomplete. Try again below.</p>
+                    {% endif %}          
+                        <p class="par-text">Upload another CSV times spent by candidates in various stages of your interview pipeline:<br><br>
+                {% endif %}
+                <span class="par-text-courier">Job ID | Stage ID | Candidate ID | Stage Position | Time Spent in Stage | Number of Stages in Job</span>
+                </p>
+                <p>
+                <form action="/upload" method="post" enctype="multipart/form-data">
+                    <label for="file" class="btn btn-default btn-lg"><i class="fa fa-cog fa-spin"></i>  <span class="network-name">Predict</span></label>
+                    <input type="file" onchange="this.form.submit()" id="file" name="file" style="display:none">
+                </form>
+                </p>
+                <p>
+                <p class="par-text">Or, run our <a href="{{ url_for('predict', internal_sample=True) }}" class="green">sample</a> through for an example.</p>
+                </p>
+            </div>
+        </div> 
+    </section>
+
+    <!-- Explore Section -->
+    <section id="explore" class="container content-section text-center">
+        <div class="row" >
+            <div class="col-lg-8 col-lg-offset-2 extra-section-padding-lg">
+                <h2>Explore Candidate Churn</h2>
+                <p class="par-text">Explore Green Mill's predictive model and training statistics</p>   
+                <a href="/explore" class="btn btn-default btn-lg"><i class="fa fa-bar-chart fa-fw"></i>  <span class="network-name">Explore</span></a>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="container content-section text-center">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2">
+                <h2>About Green Mill</h2>
+                <span class="par-text"><p>Green Mill uses predictive modeling to deliver insights into recruitment candidate withdrawal. By detecting high-risk candidates before they churn, Green Mill injects resource-saving flexibility into the interview pipeline.</p>
+                <p>Using annonymous data on recruitment candidate duration in interview stages across a variety of technology firms and positions, Green Mill takes a deep dive to explore correlations between time-based statistics and candidate interview outcomes. </p>
+                <p>Green Mill is a full-stack data science project developed by <span class="green">Sam Blinstein</span> as a Fellow for the <a target="_blank" href="http://www.insightdatascience.com">Insight Data Science</a> program in New York City during the Summer of 2015.</p></span>
+                <p>
+                    <table align="center" style="width: 50%">
+                        <tr>
+                            <td><a href="http://www.github.com/sblinstein" target="_blank"><i class="fa fa-github fa-3x"></i></a></td>
+                            <td><a href="https://docs.google.com/presentation/d/1zipe-tB9izO-_wcSuj1GXt59LEujK7YLexrfY5EheSA/pub?start=false&loop=false&delayms=60000" target="_blank"><i class="fa fa-play fa-3x"></i>
+                            </a></td>
+                            <td><a href="http://www.linkedin.com/in/sblinstein" target="_blank"><i class="fa fa-linkedin fa-3x"></i></a></td>
+                        </tr>
+                    </table>
+                    </p>
+            </div>
+        </div>
+    </section>
+    
+
+
+    <!-- jQuery -->
+    <script src="../static/js/jquery.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="../static/js/bootstrap.min.js"></script>
+
+    <!-- Plugin JavaScript -->
+    <script src="../static/js/jquery.easing.min.js"></script>
+
+    <!-- Custom Theme JavaScript -->
+    <script src="../static/js/grayscale.js"></script>
+
+</body>
+
+</html>

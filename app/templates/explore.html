@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Green Mill</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="../static/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="../static/css/grayscale.css" rel="stylesheet">
+
+    <!-- Green Mill CSS -->
+    <link href="../static/css/greenmill.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="../static/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet" type="text/css">
+    <link href="http://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <style type="text/css">
+        h2 { color: #42dca3;}
+    </style>
+
+</head>
+
+
+
+<body id="page-top" data-spy="scroll" data-target=".navbar-fixed-top">
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-custom navbar-fixed-top" role="navigation">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-main-collapse">
+                    <i class="fa fa-bars"></i>
+                </button>
+                <a class="navbar-brand page-scroll" href="#page-top">
+                    <a class="navbar-brand page-scroll" href="/">
+                    <i class="fa fa-arrow-circle-left"></i> <span class="light">Green</span> Mill
+                </a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse navbar-right navbar-main-collapse">
+                <ul class="nav navbar-nav">
+                    <!-- Hidden li included to remove active class from about link when scrolled up past about section -->
+                    <li class="hidden">
+                        <a href="#page-top"></a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="#data">Data</a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="#dist">Distribution</a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="#val">Validation</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+
+    <!-- Data Section -->
+    <section id="data" class="container content-section text-center">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 extra-section-padding-sm">
+                <h2>The Data</h2>
+                <p class="par-text"><span style="font-style: italic">Extracted</span>&nbsp;&nbsp;2.7m time-stamped samples for individual interview stages.</p>
+                <p class="par-text"><span style="font-style: italic">Transformed</span>&nbsp;&nbsp;into 1.4m samples with 12 time-based features split across two classes: <span class="red">churned</span> and <span class="green">non-churned</span>.</p>
+                <p class="par-text"><span style="font-style: italic">Loaded</span>&nbsp;&nbsp;into a <span class="orange">logistic regression</span> training and prediction pipeline.</p>
+            </div>
+        </div> 
+    </section>
+
+    <!-- Distribution Section -->
+    <section id="dist" class="container content-section text-center">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2">
+                <h2 id="problem">Distribution</h2>
+                <br>
+                <p class="par-text">The data is <span class="red caps">highly unbalanced</span> at about <span class="red">
+                19 : 1</span></p>
+            </div>
+        </div> 
+        <div><a href="../static/img/pie.png"><img width="30%" src="../static/img/pie.png"></a></div>
+        <br><br>
+        <div class="row">
+           <div class="col-lg-8 col-lg-offset-2">
+                <p class="par-text">Here are some distributions of select features.</p>
+            </div> 
+        </div>
+        <div><a href="../static/img/hist_dT_t.png"><img hspace="35" width="42%" src="../static/img/hist_dT_t.png"></a><a href="../static/img/prog_f_hist.png"><img hspace="35" width="42%" src="../static/img/hist_dT_1_t.png"></a></div><br><br>
+        <div><a href="../static/img/hist_rk_f.png"><img hspace="35" width="42%" src="../static/img/hist_rk_f.png"></a><a href="../static/img/hist_prog_f.png"><img hspace="35" width="42%" src="../static/img/hist_prog_f.png"></a></div>
+    </section>
+
+    <!-- Validation Section -->
+    <section id="val" class="container content-section text-center">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2">
+                <h2 id="problem">Validation</h2>
+                <p class="par-text">Motivated to detect candidate churn, we use metrics which are sensitive to signals in unbalanced data.</p>
+            </div>
+        </div>
+        <div><a href="../static/img/roc.png"><img width="60%" src="../static/img/roc.png"></a></div><br><br><br>
+    </section>
+
+    <!-- jQuery -->
+    <script src="../static/js/jquery.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="../static/js/bootstrap.min.js"></script>
+
+    <!-- Plugin JavaScript -->
+    <script src="../static/js/jquery.easing.min.js"></script>
+
+    <!-- Custom Theme JavaScript -->
+    <script src="../static/js/grayscale.js"></script>
+
+</body>
+
+</html>
